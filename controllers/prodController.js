@@ -1,30 +1,18 @@
-const categories = require("../models/categories.json") 
-const products = require("../models/products.json") 
+const validateRequest = require('../Middleware/validate-request');
+const productService = require('../services/productService');
 
-    // exports.getAllProducts = async (req, res, next) => 
-    // {
-    //     res.send('PRODUCT WORKING');
-    // }
-
-  exports.getCategories = async (req, res, next) => 
-  {
-    try
-    {
-       return res.status(200).send(categories);
-    }
-    catch(error)
-    {
-        return res.status(400).send({ error: "An error has occurred, unable to fetch Categories" });
-    }
-  }
-  exports.getAllProducts = async (req, res, next) => 
-  {
-    try
-    {
-       return res.status(200).send(products);
-    }
-    catch(error)
-    {
-        return res.status(400).send({ error: "An error has occurred, unable to fetch products" });
-    }
-  }
+exports.create=async(req, res, next)=> {
+  productService.createProduct(req.body)
+        .then(() => res.json({ message: 'Product created' }))
+        .catch(next);
+}
+exports.getAll =async(req, res, next)=> {
+  productService.getAll()
+        .then(product => res.json(product))
+        .catch(next);
+}
+exports.getProduct =(req, res, next) =>{
+  productService.getProduct(req.params.id)
+        .then(product => res.json(product))
+        .catch(next);
+}
