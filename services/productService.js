@@ -14,9 +14,17 @@ async function getProduct(id) {
     if (!product) throw 'Product not found';
     return product;
 }
+async function getProductByCategory(categoryId) {  
+     const product = await db.Product.findAll({
+    where: {categoryId},
+});
+if (!product) throw 'Product not found';
+return product;
+}
 
 module.exports = {
     getAll,    
     createProduct,
-    getProduct   
+    getProduct,
+    getProductByCategory   
 };

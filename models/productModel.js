@@ -7,6 +7,7 @@ function model(sequelize) {
         name: { type: DataTypes.STRING, allowNull: false },
         title: { type: DataTypes.STRING, allowNull: false },
         price: { type: DataTypes.STRING, allowNull: false },
+        categoryId:{type:DataTypes.INTEGER,allowNull:false},
         description: { type: DataTypes.STRING, allowNull: false },
         category: { type: DataTypes.STRING, allowNull: false },
         imageurl: { type: DataTypes.STRING, allowNull: false },

@@ -16,3 +16,8 @@ exports.getProduct =(req, res, next) =>{
         .then(product => res.json(product))
         .catch(next);
 }
+exports.getProductByCategory =(req, res, next) =>{
+  productService.getProductByCategory(req.params.id)
+        .then(product => res.json(product))
+        .catch(next);
+}
