@@ -24,10 +24,9 @@ exports.signIn =async(req, res, next)=> {
             if (!user) {
                 return res.status(404).send({ message: "User Not found." });
               }
-              var hash = bcrypt.hashSync(password);
               var passwordIsValid = bcrypt.compareSync(
                 password,
-                hash
+                user.PasswordHash
               );
               if (!passwordIsValid) {
                 return res.status(401).send({
@@ -35,13 +34,15 @@ exports.signIn =async(req, res, next)=> {
                   message: "Invalid Password!"
                 });
               }
-              var token = jwt.sign({payload: { id: user.id, username: user.email}}, process.env.JWT_SECRET, {
-                expiresIn: 86400 // 24 hours
-              });
-              res.status(200).send({              
-                accessToken: token
-              });
-
+              else{
+                var token = jwt.sign({payload: { id: user.id, username: user.email}}, process.env.JWT_SECRET, {
+                  expiresIn: 86400 // 24 hours
+                });
+                res.status(200).send({              
+                  accessToken: token
+                });
+  
+              }              
         }
             )
         .catch(next);

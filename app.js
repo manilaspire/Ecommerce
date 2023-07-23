@@ -4,6 +4,7 @@ const productRoute = require("./routes/prodRoute");
 const categoryRoute=require("./routes/categoryRoute");
 const userRoute=require("./routes/userRoute");
 const cors=require("cors");
+const errorHandler = require('./Middleware/error-handler');
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
@@ -19,7 +20,8 @@ app.get("/", (req, res) =>
 {
     res.send('API IS NOW WORKING');
 });
-
+// global error handler
+app.use(errorHandler);
   app.use((req, res, next) => {
     const error = new Error();
     error.message = "Not Found";
